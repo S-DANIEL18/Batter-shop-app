@@ -1,3 +1,5 @@
+
+<script src="app.js"></script>
 // app.js (compat-style) — Batter Shop full app logic
 // Assumes firebase.initializeApp(...) and `const db = firebase.firestore();` exist in firebase.js
 
