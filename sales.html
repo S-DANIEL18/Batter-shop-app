@@ -13,13 +13,13 @@
 <a href="index.html" class="btn btn-sm btn-outline-secondary">Home</a>
 </div>
 
-
 <form id="addSaleForm">
 <div class="mb-2">
 <select id="sale_customer" class="form-select" required>
 <option value="">Select customer</option>
 </select>
 </div>
+
 <div class="row g-2">
 <div class="col-6">
 <input id="qty" type="number" class="form-control" placeholder="Quantity (kg)" required>
@@ -29,7 +29,6 @@
 </div>
 </div>
 
-
 <div class="mb-2 mt-2">
 <select id="payment_type" class="form-select">
 <option value="paid">Paid now</option>
@@ -37,19 +36,28 @@
 <option value="credit">Not paid</option>
 </select>
 </div>
+
 <div class="mb-2">
 <input id="paid_amount" type="number" class="form-control" placeholder="Amount paid (if any)">
 </div>
+
 <div class="d-grid">
 <button class="btn btn-primary">Save Sale</button>
 </div>
 </form>
 </div>
 
-
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
 <script src="app.js"></script>
+
+<!-- ✅ FIXED STEP 4: Load customers when page opens -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    loadCustomersForSales();   // load customer list into dropdown
+});
+</script>
+
 </body>
 </html>
