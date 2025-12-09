@@ -14,13 +14,14 @@
     <a href="index.html" class="btn btn-sm btn-outline-secondary">Home</a>
   </div>
 
+  <!-- Add Customer Form -->
   <form id="addCustomerForm" class="mb-3">
     <div class="row g-2">
       <div class="col-6">
-        <input id="c_name" class="form-control" placeholder="Customer name" required>
+        <input class="form-control" id="c_name" placeholder="Customer name" required>
       </div>
       <div class="col-6">
-        <input id="c_mobile" class="form-control" placeholder="Mobile (10 digits)" required>
+        <input class="form-control" id="c_mobile" placeholder="Mobile (10 digits)" required>
       </div>
     </div>
     <div class="mt-2 d-grid">
@@ -28,12 +29,64 @@
     </div>
   </form>
 
-  <ul id="customersList" class="list-group"></ul>
+  <!-- Customers List -->
+  <ul class="list-group" id="customersList"></ul>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
-<script src="customers.js"></script>
+<script>
+  const db = firebase.firestore();
+
+  const $ = id => document.getElementById(id);
+
+  // Add Customer
+  async function addCustomer() {
+    const name = $('c_name').value.trim();
+    const mobile = $('c_mobile').value.trim();
+    if (!name) return alert("Enter customer name");
+
+    try {
+      await db.collection("customers").add({
+        name,
+        mobile,
+        pending: 0,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      $('c_name').value = '';
+      $('c_mobile').value = '';
+      alert("Customer added!");
+    } catch (err) {
+      console.error(err);
+      alert("Error adding customer");
+    }
+  }
+
+  // Listen and show customers in list (real-time)
+  function listenCustomers() {
+    const listEl = $('customersList');
+    db.collection("customers").orderBy("name").onSnapshot(snapshot => {
+      listEl.innerHTML = '';
+      snapshot.forEach(doc => {
+        const c = doc.data();
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = `${c.name} (${c.mobile || ''}) — Pending ₹${c.pending || 0}`;
+        listEl.appendChild(li);
+      });
+    });
+  }
+
+  // DOM loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    listenCustomers();
+
+    $('addCustomerForm').addEventListener("submit", e => {
+      e.preventDefault();
+      addCustomer();
+    });
+  });
+</script>
 </body>
 </html>
