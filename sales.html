@@ -55,28 +55,66 @@
 
 <script>
 // ===============================
-// 3️⃣ Load customers dynamically
+// Load customers from Firestore into dropdown
 // ===============================
-function loadCustomersForSales() {
+document.addEventListener("DOMContentLoaded", () => {
   const select = document.getElementById("sale_customer");
-  if (!select) return;
 
-  // Real-time listener: updates dropdown immediately when new customers added
   db.collection("customers").orderBy("name").onSnapshot(snapshot => {
+    if (!select) return;
     select.innerHTML = "<option value=''>Select customer</option>"; // reset
+
     snapshot.forEach(doc => {
       const c = doc.data();
-      const opt = document.createElement("option");
-      opt.value = doc.id;
-      opt.textContent = `${c.name} (${c.mobile || ''})`;
-      select.appendChild(opt);
+      const option = document.createElement("option");
+      option.value = doc.id;
+      option.textContent = `${c.name} (${c.mobile || ''})`;
+      select.appendChild(option);
     });
-  }, err => console.error("Error loading customers:", err));
-}
+  }, err => console.error("Error fetching customers:", err));
 
-// Auto-run when page loads
-document.addEventListener("DOMContentLoaded", () => {
-  loadCustomersForSales();
+  // ===============================
+  // Handle Add Sale form submit
+  // ===============================
+  const form = document.getElementById("addSaleForm");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const customerId = select.value;
+    const qty = Number(document.getElementById("qty").value);
+    const rate = Number(document.getElementById("rate").value);
+    const paymentType = document.getElementById("payment_type").value;
+    const paidAmount = Number(document.getElementById("paid_amount").value || 0);
+
+    if (!customerId) return alert("Select a customer");
+
+    const total = Math.round(qty * rate * 100) / 100;
+    let credit = (paymentType === "paid") ? 0
+               : (paymentType === "partial") ? Math.max(total - paidAmount, 0)
+               : total;
+
+    try {
+      // Add sale
+      await db.collection("sales").add({
+        customerId, qty, rate, total, paid: paidAmount, credit, paymentType,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      // Update pending in customer
+      const custRef = db.collection("customers").doc(customerId);
+      await db.runTransaction(async t => {
+        const snap = await t.get(custRef);
+        const prevPending = snap.exists ? Number(snap.data().pending || 0) : 0;
+        t.update(custRef, { pending: prevPending + credit });
+      });
+
+      alert("Sale recorded!");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Error saving sale");
+    }
+  });
 });
 </script>
 
