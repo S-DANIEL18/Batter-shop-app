@@ -14,14 +14,13 @@
     <a href="index.html" class="btn btn-sm btn-outline-secondary">Home</a>
   </div>
 
-  <!-- Add Customer Form -->
   <form id="addCustomerForm" class="mb-3">
     <div class="row g-2">
       <div class="col-6">
-        <input class="form-control" id="c_name" placeholder="Customer name" required>
+        <input id="c_name" class="form-control" placeholder="Customer name" required>
       </div>
       <div class="col-6">
-        <input class="form-control" id="c_mobile" placeholder="Mobile (10 digits)" required>
+        <input id="c_mobile" class="form-control" placeholder="Mobile (10 digits)" required>
       </div>
     </div>
     <div class="mt-2 d-grid">
@@ -29,13 +28,12 @@
     </div>
   </form>
 
-  <!-- Customers List -->
-  <ul class="list-group" id="customersList"></ul>
+  <ul id="customersList" class="list-group"></ul>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
-<script src="app.js"></script>
+<script src="customers.js"></script>
 </body>
 </html>
