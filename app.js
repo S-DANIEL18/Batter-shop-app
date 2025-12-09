@@ -349,3 +349,18 @@ function addCustomer() {
     document.getElementById("customerPhone").value = "";
   });
 }
+// LOAD CUSTOMERS ON SALES PAGE
+function loadCustomersForSales() {
+  const select = document.getElementById("customerSelect");
+  select.innerHTML = "<option value=''>Select Customer</option>";
+
+  db.ref("customers").on("value", (snapshot) => {
+    snapshot.forEach((child) => {
+      const customer = child.val();
+      const option = document.createElement("option");
+      option.value = child.key;
+      option.textContent = customer.name + " (" + customer.phone + ")";
+      select.appendChild(option);
+    });
+  });
+}
