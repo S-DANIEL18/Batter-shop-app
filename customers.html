@@ -8,46 +8,35 @@
 </head>
 <body>
 <div class="container py-3">
-<div class="d-flex justify-content-between align-items-center mb-3">
-<h3>Customers</h3>
-<a href="index.html" class="btn btn-sm btn-outline-secondary">Home</a>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Customers</h3>
+    <a href="index.html" class="btn btn-sm btn-outline-secondary">Home</a>
+  </div>
+
+  <!-- Single form to add customer -->
+  <form id="addCustomerForm" class="mb-3">
+    <div class="row g-2">
+      <div class="col-6">
+        <input class="form-control" id="c_name" placeholder="Customer name" required>
+      </div>
+      <div class="col-6">
+        <input class="form-control" id="c_mobile" placeholder="Mobile (10 digits)" required>
+      </div>
+    </div>
+    <div class="mt-2 d-grid">
+      <button type="submit" class="btn btn-success">Add Customer</button>
+    </div>
+  </form>
+
+  <!-- List of customers -->
+  <ul class="list-group" id="customersList"></ul>
 </div>
 
-<form id="addCustomerForm" class="mb-3">
-<div class="row g-2">
-<div class="col-6">
-<input class="form-control" id="c_name" placeholder="Customer name" required>
-</div>
-<div class="col-6">
-<input class="form-control" id="c_mobile" placeholder="Mobile (10 digits)" required>
-</div>
-</div>
-<div class="mt-2 d-grid">
-<button class="btn btn-success">Add Customer</button>
-</div>
-</form>
-<form id="addCustomerForm">
-  <input id="c_name">
-  <input id="c_mobile">
-  <button type="submit" class="btn btn-success">Add Customer</button>
-</form>
-<ul id="customersList"></ul>
-
-<ul class="list-group" id="customersList"></ul>
-</div>
-
+<!-- Firebase scripts -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
 <script src="app.js"></script>
-
-<!-- ✅ STEP 5 FIXED: Connect the Add button to addCustomer() -->
-<script>
-document.getElementById("addCustomerForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    addCustomer();   // 🔥 Save customer to Firestore
-});
-</script>
 
 </body>
 </html>
