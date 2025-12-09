@@ -1,32 +1,49 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Queen Batter Shop</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Queen Batter Shop</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Your custom styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<nav class="navbar navbar-light bg-light">
-<div class="container-fluid">
-<a class="navbar-brand" href="#">Queen Batter Shop</a>
-<a class="btn btn-outline-primary" href="customers.html">Customers</a>
-</div>
-</nav>
 
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Queen Batter Shop</a>
+            <a class="btn btn-outline-primary" href="customers.html">Customers</a>
+        </div>
+    </nav>
 
-<main class="container py-3">
-<div class="d-grid gap-2">
-<a class="btn btn-primary btn-lg" href="sales.html">Add Sale</a>
-<a class="btn btn-secondary btn-lg" href="pending.html">Pending Collections</a>
-<a class="btn btn-info btn-lg" href="reports.html">Reports</a>
-</div>
-</main>
+    <!-- Main Buttons -->
+    <main class="container py-3">
+        <div class="d-grid gap-2">
+            <a class="btn btn-primary btn-lg" href="sales.html">Add Sale</a>
+            <a class="btn btn-secondary btn-lg" href="pending.html">Pending Collections</a>
+            <a class="btn btn-info btn-lg" href="reports.html">Reports</a>
+        </div>
+    </main>
 
+    <!-- ========================================================= -->
+    <!-- POINT 2: Firebase SDKs MUST be placed here (correct spot) -->
+    <!-- ========================================================= -->
+    
+    <!-- Firebase SDKs (compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
-<script src="app.js"></script>
+    <!-- Your Firebase configuration -->
+    <script src="firebase.js"></script>
+
+    <!-- Your main app logic -->
+    <script src="app.js"></script>
+
 </body>
 </html>
