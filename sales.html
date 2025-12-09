@@ -53,5 +53,32 @@
 <script src="firebase.js"></script>
 <script src="app.js"></script>
 
+<script>
+// ===============================
+// 3️⃣ Load customers dynamically
+// ===============================
+function loadCustomersForSales() {
+  const select = document.getElementById("sale_customer");
+  if (!select) return;
+
+  // Real-time listener: updates dropdown immediately when new customers added
+  db.collection("customers").orderBy("name").onSnapshot(snapshot => {
+    select.innerHTML = "<option value=''>Select customer</option>"; // reset
+    snapshot.forEach(doc => {
+      const c = doc.data();
+      const opt = document.createElement("option");
+      opt.value = doc.id;
+      opt.textContent = `${c.name} (${c.mobile || ''})`;
+      select.appendChild(opt);
+    });
+  }, err => console.error("Error loading customers:", err));
+}
+
+// Auto-run when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  loadCustomersForSales();
+});
+</script>
+
 </body>
 </html>
