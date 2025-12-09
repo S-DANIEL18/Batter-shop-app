@@ -328,3 +328,24 @@ window.addEventListener('DOMContentLoaded', () => {
     loadReports();
   }
 });
+
+// SAVE CUSTOMER
+function addCustomer() {
+  const name = document.getElementById("customerName").value;
+  const phone = document.getElementById("customerPhone").value;
+
+  if (name === "" || phone === "") {
+    alert("Please enter customer name and phone");
+    return;
+  }
+
+  const newRef = db.ref("customers").push();
+  newRef.set({
+    name: name,
+    phone: phone
+  }).then(() => {
+    alert("Customer added!");
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerPhone").value = "";
+  });
+}
