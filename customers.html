@@ -13,7 +13,6 @@
 <a href="index.html" class="btn btn-sm btn-outline-secondary">Home</a>
 </div>
 
-
 <form id="addCustomerForm" class="mb-3">
 <div class="row g-2">
 <div class="col-6">
@@ -28,14 +27,21 @@
 </div>
 </form>
 
-
 <ul class="list-group" id="customersList"></ul>
 </div>
-
 
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
 <script src="app.js"></script>
+
+<!-- ✅ STEP 5 FIXED: Connect the Add button to addCustomer() -->
+<script>
+document.getElementById("addCustomerForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    addCustomer();   // 🔥 Save customer to Firestore
+});
+</script>
+
 </body>
 </html>
