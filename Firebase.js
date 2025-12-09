@@ -1,4 +1,4 @@
-// Firebase configuration for Queen Batter Shop App
+// Firebase configuration for Queen Batter Shop App (compat style)
 const firebaseConfig = {
   apiKey: "AIzaSyDjwS9GtPf15vNYSNeYZ_2W-e-lcowhw0o",
   authDomain: "batter-shop-app.firebaseapp.com",
@@ -8,8 +8,8 @@ const firebaseConfig = {
   appId: "1:729285319910:web:62822a8bcbac2bd84aaf27"
 };
 
-// Initialize Firebase
+// Initialize Firebase (compat)
 firebase.initializeApp(firebaseConfig);
 
-// Initialize Firestore database
+// Initialize Firestore database (compat)
 const db = firebase.firestore();
